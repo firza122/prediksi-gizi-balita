@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 import pickle
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
@@ -7,10 +6,6 @@ from sklearn.preprocessing import MinMaxScaler
 # Load model dan scaler dari file
 model_path = "knn_model_balita.sav"
 scaler = MinMaxScaler(feature_range=(0, 1))  # MinMaxScaler manual untuk normalisasi
-
-# Pastikan scaler sudah dilatih (fit) di luar tombol prediksi
-# Gantilah scaler.fit hanya dengan data yang sesuai dengan training data Anda
-scaler.fit([[0, 30], [60, 150]])  # Asumsi rentang data asli: umur (0-60 bulan) dan tinggi badan (30-150 cm))
 
 with open(model_path, "rb") as model_file:
     model = pickle.load(model_file)
@@ -33,13 +28,15 @@ if st.button("Prediksi Status Gizi"):
     try:
         # Normalisasi input
         input_data = np.array([[umur, tinggi_badan]])
-        normalized_data = scaler.transform(input_data)  # Gunakan data yang sudah di-normalisasi
+        scaler.fit([[0, 30], [60, 150]])  # Asumsi rentang data asli: umur (0-60 bulan) dan tinggi badan (30-150 cm)
+        normalized_data = scaler.transform(input_data)
         
         # Prediksi menggunakan model
-        prediction = model.predict(normalized_data)  # Gunakan data yang sudah dinormalisasi
+        prediction = model.predict([[umur,tinggi_badan]])
         
         # Menampilkan hasil prediksi
         status_gizi = prediction[0]
+        print(status_gizi)
         if status_gizi == 1:
             st.write("Status gizi balita: Stunting")
         elif status_gizi == 0:
