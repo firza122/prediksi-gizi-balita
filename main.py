@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import pickle
 import numpy as np
-import plotly.express as plx
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 
 # Load model dan scaler dari file
