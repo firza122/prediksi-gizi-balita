@@ -1,10 +1,5 @@
-numpy
-joblib
-pandas
-seaborn
-matplotlib
-scikit-learn
 streamlit
-seaborn
-plotly
-MinMaxScaler 
+pandas
+joblib
+numpy
+scikit-learn
