@@ -1,7 +1,10 @@
 import streamlit as st
+import pandas as pd
 import pickle
+import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
+import plotly.express as plx
+from sklearn.preprocessing import LabelEncoder
 
 # Load model dan scaler dari file
 model_path = "knn_model_balita.sav"
